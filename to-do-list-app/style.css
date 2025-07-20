@@ -22,7 +22,7 @@ h1.title {
 }
 #todo_app .todo .input {
     padding: 10px 20px;
-    min-width: 400px;
+    min-width: 30rem;
     font-size: 1rem;
 }
 #todo_app .todo .input:focus {
@@ -31,15 +31,29 @@ h1.title {
 }
 .todo button {
     padding: 10px 20px;
-    border: 1px solid #0c620c;
+    border: 1px solid black;
     font-size: 1rem;
-    background-color: #0c620c;
     color: #efefef;
     cursor: pointer;
     animation: background-color 0.6s ease-in-out;
 }
-.todo button:hover {
-    background-color: #0e760e;
+
+
+.delete
+{
+    background-color: rgb(194, 17, 17);
+}
+
+.delete:hover
+{
+    background-color: red;
+}
+.add 
+{
+    background-color: rgb(16, 105, 16);
+}
+.add:hover {
+    background-color: #209d20;
 }
 
 ul#todo_list {
@@ -48,6 +62,7 @@ ul#todo_list {
 }
 
 ul#todo_list li {
+    font-size: large;
     padding: 10px 0px;
     border-bottom: 1px solid #2e2e2e;
 }

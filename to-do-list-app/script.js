@@ -1,20 +1,35 @@
-const buttonEl = document.querySelector("#button");
+const addbtn = document.querySelector("#addbtn");
 const todoList = document.querySelector("#todo_list");
 
 function addTodo() {
-    const li = document.createElement("li");
-    let inputValue = document.querySelector(".input").value;
-    const t = document.createTextNode(inputValue);
-    li.appendChild(t);
+        const li = document.createElement("li");
+        // getting the text the user typed into the input 
+        let inputValue = document.querySelector(".input").value;
+        const task = document.createTextNode(inputValue);
+  
+        // with each new task, we create a delete button for it
+        const deletetask = document.createElement("button");
+        deletetask.textContent = "🗑️";
+        deletetask.className = "delete button";
+        deletetask.addEventListener("click", function() {this.parentElement.remove();   });
 
-    // Cheack input validation
-    if (inputValue === "") {
-        alert("Please enter a valid value");
-    } else {
-        todoList.appendChild(li);
+        li.appendChild(task);
+        li.appendChild(deletetask);
+
+        
+        if (inputValue === "") {
+         alert("Please enter a valid value");
+        }
+        else {
+            todoList.appendChild(li);
+        }
+
     }
-    console.log(inputValue);
-    document.querySelector("input").value = "";
-}
 
-buttonEl.addEventListener("click", addTodo);
+const inputField = document.querySelector(".input");
+inputField.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        addTodo();
+    }
+}); 
+addbtn.addEventListener("click", addTodo);
