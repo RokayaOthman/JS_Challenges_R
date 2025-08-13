@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <link 
+  rel="stylesheet" 
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="style-START.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+
+</head>
+<body>
+
+  <div class="dropup">
+    <button
+      class="btn btn-secondary dropdown-toggle" 
+      type="button" 
+      data-bs-toggle="dropdown" 
+      aria-expanded="false">
+      Countries
+    </button>
+    <ul class="dropdown-menu" id="countryList">
+      <!--Manipulated inside JS-->
+    </ul>
+  </div>
+
+  <h1 class="display-1 current-name">City's Name is displayed here</h1>
+  <h1 class="display-2 current-time"></h1>
+  
+  <div class="holder">
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-outline-secondary btn-lg sound-button">
+      <i class="fa-solid fa-volume-xmark"></i>
+    </button>
+  </div>
+    
+  <audio id="audio" src="tickingSound.mp3" loop controls></audio>
+ 
+  <script src="js/popper.min.js"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
