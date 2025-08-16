@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#ffc600">
+  </div>
+ 
+<div class="wrapper">
+  <img class='image' src="Cat jpeg.jpeg">
+</div>
+
+  <style>
+
+    /*
+      misc styles, nothing to do with CSS variables
+    */
+
+    body {
+      text-align: center;
+      background: #193549;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+      height: 100%;
+    }
+
+    .controls {
+      margin-bottom: 70px;
+    }
+
+    input {
+      width: 100px;
+    }
+
+    img {
+      border: 20px solid red;
+    }
+  </style>
+
+  <script>
+   let spaceValue = document.querySelector('#spacing');
+   let blurValue = document.querySelector('#blur');
+   let baseColor = document.querySelector('#base');
+   let image = document.querySelector('.image');
+   let jsColored = document.querySelector('.hl');
+   function update() {
+    image.style.border = `${spaceValue.value}px solid ${baseColor.value}`;
+    image.style.filter = `blur(${blurValue.value}px)`
+    jsColored.style.color = baseColor.value;
+   }
+   
+  //spaceValue.oninput = baseColor.oninput = blurValue.oninput = update;
+  update();
+
+
+  [spaceValue, baseColor, blurValue, jsColored].forEach(function(input){
+    input.addEventListener("input", update);  
+  });
+
+ 
+
+  </script>
+
+</body>
+</html>
