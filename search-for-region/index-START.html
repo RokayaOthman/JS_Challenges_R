@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+// this list will contain only the city and region and population
+let simpleList = [];
+
+fetch(endpoint)
+.then(res=> res.json())
+.then(cities => {
+  // cityName , region , population are the names of the variables inside the new list
+   simpleList = cities.map(({city, state, population}) => ({
+    cityName: city,
+    region: state,
+    population}));
+});
+
+// DOM : selecting the input field HTML element
+const searchInput = document.querySelector('.search');
+  
+// choosing the parent to attach the new li element to
+const container = document.querySelector('.suggestions') || document.body;
+
+// this function takes the text and adds a css class to it 
+function wrappCssClass(text, value, className){
+  const textString = String(text);
+  if(!value){
+    return textString;
+  }
+  // replace only returns the first match and we use regex to get all of the matches
+ const regx = new RegExp(value, "gi");
+  return textString.replace(regx, match => `<span class="${className}">${match}</span>`);
+}
+
+// we listen for any text that comes through the input
+searchInput.addEventListener('input', function(e){
+  const value = e.target.value.trim().toLowerCase();
+  // e.target.value : accesses the value of the element that user interacted with (input element)
+  if (!value) {
+  container.innerHTML = '<li>Filter for a city</li><li>or a state</li>';
+  return;
+  }
+
+  // مطابقة النتائج التي تحتوي فقط على النص الداخل
+  const results = simpleList.filter(item =>
+  item.cityName.toLowerCase().includes(value) ||
+  item.region.toLowerCase().includes(value))
+
+    // there is no results with typed input
+  if (results.length === 0){
+    container.innerHTML = '<li>No matches found</li>';
+    return;
+  }
+
+  // the map method takes an array (results) and transforms each
+  // element of it into something else
+  container.innerHTML = results.map(item => {
+
+    const cityHighlighted = wrappCssClass(item.cityName, value, "highlight");
+    const regionHighlighted = wrappCssClass(item.region, value, "highlight");
+    const populationHighlighted = wrappCssClass(item.population, value, "highlightPop");
+
+    // كل سطر جديد هيكون جواه التلت حاجات دول وجاهزين بكلاسات عشان يتعمل لهم الهايلايت
+    return `<li>${cityHighlighted}, ${regionHighlighted}  ${populationHighlighted}</li>`;
+    }).join('');
+  });
+
+
+
+// find( ) only returns one element
+// filter() finds all matches
+// map() and filter() are Higher-Order functions , that take a CALLBACK functions as arguments
+// A callback is any function you pass into another function to be called later.
+// "x => x * x"          means : take x as input (parameter) then => return value x*x
+</script>
+</body>
+</html>
