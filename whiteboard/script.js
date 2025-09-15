@@ -10,7 +10,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;  
 
 const context = canvas.getContext('2d'); // a canvas can only have one rendering context type at a time
-context.lineWidth = 5;
+context.lineWidth = 6;
 context.lineCap = 'round';
 
 let isDrawing = false;
