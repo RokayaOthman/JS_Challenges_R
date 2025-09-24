@@ -1,74 +1,84 @@
-.buttons
-{
-    display: flex;
-    justify-content: space-around;
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0; /* spacing above/below button row */
 }
+
 button {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* subtle depth */
 }
-#start
-{
-    border-radius: 50%;
-    background-color: green;
+
+#start {
+  background-color: green;
 }
 #start.active {
-      transform: scale(1.2);
-      background-color: limegreen;
-    }
-#stop
-{
-    border-radius: 50%;
-    background-color: red;
+  transform: scale(1.2);
+  background-color: limegreen;
+}
+
+#stop {
+  background-color: red;
 }
 #stop.active {
-      transform: scale(1.2);
-      background-color: darkred;
-    }
-#output {
-    color: blue;
-    font-size: 20px;
-    background-color: lightyellow;
-    padding: 10px;
-    border: 1px solid #ccc;
-    height: 1000px;
-    width: 100%;
-    box-sizing: border-box;
+  transform: scale(1.2);
+  background-color: darkred;
 }
 
-#deletebtn
-{
-    background-color: gray;
-    border-radius: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* space between icon and text */
-    padding: 0 15px; /* more horizontal space */
-    font-size: 1.2rem;
+#deletebtn {
+  background-color: gray;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;           /* space between icon and text */
+  padding: 10px 20px; /* balanced padding */
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#deletebtn:hover {
+  background-color: #555; /* darker on hover */
 }
 
-.grow
-{
-    transition: all 0.2s ease-in-out;
+.grow {
+  transition: transform 0.2s ease-in-out;
+}
+.grow:hover {
+  transform: scale(1.1);
 }
 
-.grow:hover
-{
-    transform: scale(1.1);
+.stop {
+  cursor: grab;
 }
 
-.stop
-{
-    cursor: grab;
+.delete {
+  cursor: pointer;
 }
 
-.delete
-{
-    cursor: pointer;
+#voiceInput {
+  background-color: #f9fdfd;   /* softer background */
+  border: 2px solid #4682b4;   /* SteelBlue */
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;                /* dark text for readability */
+  width: 100%;
+  height: 180px;
+  resize: vertical;           /* allow vertical resizing */
+  box-sizing: border-box;
+  outline: none;              /* remove default outline */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+#voiceInput:focus {
+  border-color: #1e90ff;      /* DodgerBlue when focused */
+  box-shadow: 0 0 5px rgba(30,144,255,0.5);
 }

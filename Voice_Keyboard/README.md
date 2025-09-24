@@ -1,7 +1,3 @@
-Here’s a **short, lightweight README** version — stripped down to just the essentials (setup + usage):
-
----
-
 # Voice Keyboard
 
 Voice Keyboard is a simple web app that uses the **Web Speech API** to convert speech into text directly in your browser.
