@@ -93,33 +93,7 @@
 
 <script>
 
-let lastChecked;
 
-  // function handleCheck(e) {
-  //   // Check if they had the shift key down
-  //   // AND check that they are checking it
-  //   if(e.target.tagName == "checkbox") {
-  //     let inBetween = false;
-  //   if (e.shiftKey && e.target.checked) {
-  //     // go ahead and do what we please
-  //     // loop over every single checkbox
-  //     checkboxes.forEach(checkbox => {
-  //       console.log(checkbox);
-  //       if (checkbox === e.target || checkbox === lastChecked) {
-  //         inBetween = !inBetween;
-  //         console.log('Starting to check them in between!');
-  //       }
-
-  //       if (inBetween) {
-  //         checkbox.checked = true;
-  //       }
-  //     });
-  //   }
-
-  //   lastChecked = e.target; // e.target is the element that was actually checked
-  //   }
-  // }
- 
 const addBtn = document.getElementById("addTask");
 
 function createTask() {
@@ -161,6 +135,22 @@ controls.addEventListener("click", e=> {
     taskList.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);  
   }
 })
+let lastChecked = null;
+taskList.addEventListener("click", e => {
+  if(e.target.type === "checkbox") {
+    const checkboxes = [...taskList.querySelectorAll('input[type="checkbox"]')];
+    if(e.shiftKey && lastChecked){
+      let inbetween = false;
+      checkboxes.forEach(cb => {
+        if(cb === e.target || cb === lastChecked){
+          inbetween = !inbetween;
+        }
+        if(inbetween) cb.checked = true;
+      });
+    }
+    lastChecked = e.target;
+  }
+});
 </script>
 </body> 
 </html>
