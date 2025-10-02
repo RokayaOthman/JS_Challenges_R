@@ -17,24 +17,29 @@
       background:  hsl(47, 89%, 68%);
     }
 
+    .task{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f9f9f9;
+    }
+
+     .task.done input[type="text"] {
+      text-decoration: line-through;
+      color: gray;
+    }
+
     .inbox {
       max-width: 400px;
       margin: 50px auto;
       background: white;
       border-radius: 5px;
-      box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+      box-shadow: 10px 10px 0 rgba(42, 24, 24, 0.1);
     }
-
-    .item {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #F1F1F1;
-    }
-
-    .item:last-child {
-      border-bottom: 0;
-    }
-
 
     input:checked + p {
       background: #F9F9F9;
@@ -44,7 +49,7 @@
     input[type="checkbox"] {
       margin: 20px;
     }
-
+    
     p {
       margin: 0;
       padding: 20px;
@@ -55,6 +60,10 @@
       font-weight: 200;
       border-left: 1px solid #D1E2FF;
     }
+     button:hover {
+      background: #0056b3;
+    }
+
   </style>
    <!--
    The following is a common layout you would see in an email client.
@@ -63,98 +72,95 @@
 
   -->
   <div class="inbox">
-    <button class="dselect">
+    <div id="controls">
+      <button class="add" id="addTask">
+      <i class="fa-solid fa-square-plus"></i>
+      </button>
+      <button class="dselect">
       <i class="fa-solid fa-ban"></i>
-    </button>
-    <button class="select">
-      <i class="fa-regular fa-square-check"></i>
-    </button>
-    <div class="item">
+      </button>
+      <button class="select">
+        <i class="fa-regular fa-square-check"></i>
+      </button>
+    </div>  
+    <!-- <div class="item">
       <input type="checkbox">
       <p>This is an inbox layout.</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Check one item</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Hold down your Shift key</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Check a lower item</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Everything in between should also be set to checked</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Try do it without any libraries</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Just regular JavaScript</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Good Luck!</p>
-    </div>
-    <div class="item">
-      <input type="checkbox">
-      <p>Don't forget to tweet your result!</p>
-    </div>
-
+    </div> -->
+    <div id="taskList"></div>
     
   </div>
 
 <script>
-const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
 
 let lastChecked;
 
-  function handleCheck(e) {
-    // Check if they had the shift key down
-    // AND check that they are checking it
-    if(e.target.tagName == "INPUT") {
-      let inBetween = false;
-    if (e.shiftKey && e.target.checked) {
-      // go ahead and do what we please
-      // loop over every single checkbox
-      checkboxes.forEach(checkbox => {
-        console.log(checkbox);
-        if (checkbox === e.target || checkbox === lastChecked) {
-          inBetween = !inBetween;
-          console.log('Starting to check them in between!');
-        }
+  // function handleCheck(e) {
+  //   // Check if they had the shift key down
+  //   // AND check that they are checking it
+  //   if(e.target.tagName == "checkbox") {
+  //     let inBetween = false;
+  //   if (e.shiftKey && e.target.checked) {
+  //     // go ahead and do what we please
+  //     // loop over every single checkbox
+  //     checkboxes.forEach(checkbox => {
+  //       console.log(checkbox);
+  //       if (checkbox === e.target || checkbox === lastChecked) {
+  //         inBetween = !inBetween;
+  //         console.log('Starting to check them in between!');
+  //       }
 
-        if (inBetween) {
-          checkbox.checked = true;
-        }
-      });
-    }
+  //       if (inBetween) {
+  //         checkbox.checked = true;
+  //       }
+  //     });
+  //   }
 
-    lastChecked = e.target; // e.target is the element that was actually checked
-    }
+  //   lastChecked = e.target; // e.target is the element that was actually checked
+  //   }
+  // }
+ 
+const addBtn = document.getElementById("addTask");
+
+function createTask() {
+const taskDiv = document.createElement("div");
+taskDiv.className = "task";
+
+const checkbox = document.createElement("input");
+checkbox.type = "checkbox";
+
+const textInput = document.createElement("input");
+textInput.type = "text";
+textInput.placeholder = "Write something...";
+
+checkbox.addEventListener("change", ()=>
+{
+  if (checkbox.checked) {
+    taskDiv.classList.add("done");
+  } 
+  else {
+    taskDiv.classList.remove("done");
   }
-  // Without Event delegation
-//checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
-
-// With Event delegation
-const container = document.querySelector(".inbox");
-container.addEventListener('click', handleCheck);
-
-const selectall = document.querySelector(".select");
-const dselect = document.querySelector(".dselect");
-
-selectall.addEventListener('click', function(event){
-  checkboxes.forEach(checkbox => {checkbox.checked = true;} );
+  //taskDiv.classList.toggle("done", checkbox.checked);
 });
 
-dselect.addEventListener('click', function(event){
-   checkboxes.forEach(checkbox => {checkbox.checked = false;} );
-});
+taskDiv.appendChild(checkbox);
+taskDiv.appendChild(textInput);
+taskList.appendChild(taskDiv);
+}
+
+createTask();
+
+addBtn.addEventListener("click", createTask);
+const controls = document.getElementById("controls");
+controls.addEventListener("click", e=> {
+  if(e.target.closest(".select")){
+    taskList.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+  }
+  if(e.target.closest(".dselect")){
+    taskList.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);  
+  }
+})
 </script>
 </body> 
 </html>
