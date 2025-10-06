@@ -57,16 +57,22 @@
       checkbox.type = 'checkbox'; 
       checkbox.id = `item-${index}`;
       checkbox.checked = item.selected;
+
       const label = document.createElement('label');
       label.textContent = item.text;
       label.setAttribute('for', `item-${index}`);
+
+      const delBtn = document.createElement('button');
+      
       const listItem = document.createElement('li');
+      
       listItem.appendChild(checkbox);
       listItem.appendChild(label);
+
       plates.appendChild(listItem);
       
       checkbox.addEventListener('change', () => {
-        items[index].selected = checkbox.selected;
+        items[index].selected = checkbox.checked;
         localStorage.setItem('todos', JSON.stringify(items));
         console.log(`"${item.text}" is now ${checkbox.checked ? 'checked' : 'unchecked'}`);
         console.log("hello");
